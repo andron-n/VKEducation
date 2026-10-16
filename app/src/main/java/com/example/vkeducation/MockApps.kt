@@ -30,4 +30,7 @@ object MockApps {
         AppInfo(11, "Обмен файлами", "Передавайте файлы между устройствами без проводов", "Инструменты", Icons.Default.Share, Color(0xFF039BE5)),
         AppInfo(12, "Настройки", "Тонкая настройка устройства и аккаунта", "Система", Icons.Default.Settings, Color(0xFF6D4C41)),
     )
+
+    // «Витрина»: 9 приложений = 3 страницы по 3
+    val showcase: List<AppInfo> get() = items.take(9)
 }

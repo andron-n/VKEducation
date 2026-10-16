@@ -32,10 +32,13 @@ import androidx.compose.ui.unit.dp
 import com.example.vkeducation.ui.theme.VKEducationTheme
 
 @Composable
-fun AppListScreen(apps: List<AppInfo> = MockApps.items) {
+fun AppListScreen(
+    apps: List<AppInfo> = MockApps.items,
+    onAppClick: (AppInfo) -> Unit = {},
+) {
     Column(Modifier.fillMaxSize().background(MaterialTheme.colorScheme.background)) {
         AppToolbar()
-        AppList(apps)
+        AppList(apps, onAppClick)
     }
 }
 
@@ -62,22 +65,27 @@ private fun AppToolbar() {
 }
 
 @Composable
-private fun AppList(apps: List<AppInfo>) {
+private fun AppList(apps: List<AppInfo>, onAppClick: (AppInfo) -> Unit) {
     LazyColumn(
         modifier = Modifier.fillMaxSize(),
         contentPadding = PaddingValues(16.dp),
         verticalArrangement = Arrangement.spacedBy(12.dp),
     ) {
-        items(apps, key = { it.id }) { AppListItem(it) }
+        items(apps, key = { it.id }) { AppListItem(it, onAppClick) }
     }
 }
 
 @Composable
-private fun AppListItem(app: AppInfo) {
+fun AppListItem(
+    app: AppInfo,
+    onClick: (AppInfo) -> Unit,
+    modifier: Modifier = Modifier,
+) {
     Surface(
+        onClick = { onClick(app) },
         shape = RoundedCornerShape(16.dp),
         color = MaterialTheme.colorScheme.surfaceVariant,
-        modifier = Modifier.fillMaxWidth(),
+        modifier = modifier.fillMaxWidth(),
     ) {
         Row(Modifier.padding(12.dp), verticalAlignment = Alignment.CenterVertically) {
             Box(
